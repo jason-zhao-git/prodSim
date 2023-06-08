@@ -15,7 +15,7 @@ else
     echo "Job 'H1' is not queing."
 fi
 
-python fake_exit.py
+#python fake_exit.py
 
 # ----- test exit code intake -------#
 exit_code=$?
@@ -42,3 +42,13 @@ pipe="test_pipe.txt"
 
 echo "$exit_code" > "$pipe"
 echo $(cat "$pipe")
+
+job_id=$(qsub fake_job1.sh)
+job_id=$(echo $job_id | grep -oE '[0-9]+')
+echo "Submitted job with ID: $job_id"
+if qstat -s r | grep -q "$job_id" || qstat | grep qw | grep -q "$job_id"; then
+    echo "Job 'Hfj1id' is queing."
+
+else
+    echo "Job 'H1id' is not queing."
+fi
